@@ -1,5 +1,9 @@
 package Lesson_6;
 
+import Lesson7.AuthService;
+import Lesson7.ChatConst;
+import Lesson7.ClientHandler;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,7 +27,7 @@ public class ExhoClient extends JFrame {
         SwingUtilities.invokeLater(ExhoClient::new);
     }
 
-    public ExhoClient(){
+    public ExhoClient() {
         try {
             openConnection();
         } catch (IOException e) {
@@ -31,26 +35,46 @@ public class ExhoClient extends JFrame {
         }
         initGUI();
     }
+
     private void openConnection() throws IOException {
         socket = new Socket(EchoConstans.HOST, EchoConstans.PORT);
         inputStream = new DataInputStream(socket.getInputStream());
         outputStream = new DataOutputStream(socket.getOutputStream());
         new Thread(() -> {
             try {
-                while (true){
-                String strFromServer = inputStream.readUTF();
-                if (strFromServer.equals(EchoConstans.STOP_WORD)){
-                    break;
+                while (true) {
+                    String strFromServer = inputStream.readUTF();
+                    if (strFromServer.equals(ChatConst.AUTH_OK)) {
+                        break;
+                    }
+                    chatArea.append(strFromServer);
+                    chatArea.append("\n");
                 }
-                chatArea.append(strFromServer);
-                chatArea.append("\n");
-            }
-            } catch (IOException ex){
+                while (true) {
+                    String strFromServer = inputStream.readUTF();
+                    if (strFromServer.equals(EchoConstans.STOP_WORD)) {
+                        break;
+                    }
+                    chatArea.append(strFromServer);
+                    chatArea.append("\n");
+                }
+//                while (true) {
+//                    String strFromServer = inputStream.readUTF();
+//                    if (strFromServer.equals(EchoConstans.STOP_WORD)) {
+//                        break;
+//                    }
+//                    chatArea.append(strFromServer);
+//                    chatArea.append("\n");
+//                }
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }).start();
+
+
     }
-    private  void closeConnection(){
+
+    private void closeConnection() {
         try {
             inputStream.close();
         } catch (IOException e) {
@@ -69,8 +93,8 @@ public class ExhoClient extends JFrame {
     }
 
 
-    public void initGUI(){
-        setBounds(600,300,500,500);
+    public void initGUI() {
+        setBounds(600, 300, 500, 500);
         setTitle("Client");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,7 +110,7 @@ public class ExhoClient extends JFrame {
         panel.add(inputField, BorderLayout.CENTER);
         JButton sendButton = new JButton("Send");
         add(panel, BorderLayout.SOUTH);
-        panel.add(sendButton,BorderLayout.EAST);
+        panel.add(sendButton, BorderLayout.EAST);
 
         sendButton.addActionListener(e -> sendMessage());
         inputField.addActionListener(e -> sendMessage());
@@ -99,7 +123,7 @@ public class ExhoClient extends JFrame {
                     outputStream.writeUTF(EchoConstans.STOP_WORD);
                     //closeConnection
 
-                } catch (IOException ex){
+                } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
@@ -109,15 +133,15 @@ public class ExhoClient extends JFrame {
         setVisible(true);
     }
 
-    public void sendMessage(){
-        if (!inputField.getText().trim().isEmpty()){
+    public void sendMessage() {
+        if (!inputField.getText().trim().isEmpty()) {
             try {
                 outputStream.writeUTF(inputField.getText());
                 inputField.setText("");
                 inputField.grabFocus();
             } catch (IOException e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(null,"Send error occurred");
+                JOptionPane.showMessageDialog(null, "Send error occurred");
             }
         }
 

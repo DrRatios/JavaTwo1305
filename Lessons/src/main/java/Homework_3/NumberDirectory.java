@@ -1,13 +1,10 @@
 package Homework_3;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class NumberDirectory {
 
-    private HashMap<String, ArrayList<String>> phoneBook = new HashMap<>();
+    private HashMap<String, List<String>> phoneBook = new HashMap<>();
 
     @Override
     public boolean equals(Object o) {
@@ -40,7 +37,7 @@ public class NumberDirectory {
     }
 
     void get(String serName) {
-        ArrayList<String> numbersOfX = phoneBook.get(serName);
+        List<String> numbersOfX = phoneBook.get(serName);
         System.out.println("Телефоны "+ serName + ": ");
         for (String ofX : numbersOfX) {
             System.out.println(ofX);
