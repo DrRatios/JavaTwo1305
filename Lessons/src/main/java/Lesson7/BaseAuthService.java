@@ -18,6 +18,10 @@ public class BaseAuthService implements AuthService {
             this.login = login;
             this.pass = pass;
         }
+
+        public String getNick() {
+            return nick;
+        }
     }
 
 

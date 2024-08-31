@@ -12,4 +12,6 @@ public interface AuthService {
      * Получить никнейм
      */
     String getNickByLoginAdPass(String login,String pass);
+
+
 }

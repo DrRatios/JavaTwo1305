@@ -50,12 +50,16 @@ public class ExhoClient extends JFrame {
                     chatArea.append(strFromServer);
                     chatArea.append("\n");
                 }
+                //read
                 while (true) {
                     String strFromServer = inputStream.readUTF();
                     if (strFromServer.equals(EchoConstans.STOP_WORD)) {
                         break;
+                    } else if (strFromServer.startsWith(ChatConst.CLIENTS_LIST)){
+                        chatArea.append("Сейчас онлайн " + strFromServer);
+                    } else {
+                        chatArea.append(strFromServer);
                     }
-                    chatArea.append(strFromServer);
                     chatArea.append("\n");
                 }
 //                while (true) {

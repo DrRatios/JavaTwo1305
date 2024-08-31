@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс обслуживания клиента (отвечает за связь между клиентом и сервером)
@@ -18,7 +20,7 @@ public class ClientHandler {
     private String name;
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public ClientHandler(MyServer server, Socket socket) {
@@ -52,7 +54,7 @@ public class ClientHandler {
                 if (nick != null) {
                     //Проверим, что такого нет!
                     if (!server.isNickBusy(nick)) {
-                        sendMsg(ChatConst.AUTH_OK +" "+ nick);
+                        sendMsg(ChatConst.AUTH_OK + " " + nick);
                         name = nick;
                         server.subscribe(this);
                         server.broadcastMessage(name + " вошёл в чат");
@@ -79,14 +81,29 @@ public class ClientHandler {
     }
 
     private void readMessages() throws IOException {
+
         while (true) {
             String messageFromClient = inputStream.readUTF();
             System.out.println("от " + name + ": " + messageFromClient);
             if (messageFromClient.equals(ChatConst.STOP_WORD)) {
                 return;
+            } else if (messageFromClient.startsWith(ChatConst.PRIVATE_MESSAGE)) {
+                String[] splStr = messageFromClient.split("\\s+");
+                List<String> nicknames = new ArrayList<>();
+                for (int i = 1; i < splStr.length - 1; i++) {
+                    nicknames.add(splStr[i]);
+                }
+            } else if (messageFromClient.equals(ChatConst.CLIENTS_LIST)){
+                server.broadcastClients();
             }
             server.broadcastMessage("[" + name + "]: " + messageFromClient);
-//            server.privateMessage("[" + name + "]: " + messageFromClient);
+//                    if (messageFromClient.startsWith(ChatConst.PRIVATE_MESSAGE)) {
+//                        String to = messageFromClient.split(" ")[1];
+//                        String message = messageFromClient.split(" ")[2];
+//                        server.privateMessage(this, to, message);
+//                    } else {
+//                        server.broadcastMessage("[" + name + "]: " + messageFromClient);
+//                    }
         }
     }
 
@@ -110,4 +127,6 @@ public class ClientHandler {
         }
     }
 }
+
+
 
