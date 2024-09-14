@@ -40,7 +40,7 @@ public class App {
         words.add("b");
         words.add("c");
         words.add("ab");
-        System.out.println(words);
+//        System.out.println(words);
 
         //Получить новый клиентовый список со словами длинее трёх букв
         List<String> newList = words.stream().filter(w -> w.length() > 3).toList();

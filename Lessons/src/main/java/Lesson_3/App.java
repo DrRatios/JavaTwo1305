@@ -1,6 +1,7 @@
 package Lesson_3;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class App {
     public static void main(String[] args) {
@@ -53,15 +54,16 @@ public class App {
 
 
         List<String> strings = new ArrayList<>(Arrays.asList("A","B","C","D","A"));
+        System.out.println(strings.stream().distinct().skip(1).collect(Collectors.toList()));
 
-        Iterator<String> iter = strings.iterator();
-        while (iter.hasNext()) {
-            String s = iter.next();
-            if (s.equals("A")){
-                iter.remove();
-            }
-        }
-        System.out.println(strings);
+//        Iterator<String> iter = strings.iterator();
+//        while (iter.hasNext()) {
+//            String s = iter.next();
+//            if (s.equals("A")){
+//                iter.remove();
+//            }
+//        }
+
 
     }
 

@@ -4,27 +4,31 @@ import org.w3c.dom.ls.LSOutput;
 
 import java.sql.SQLOutput;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class MyApp {
+
 
 
     public static void main(String[] args) {
         String[][] strings = new String[][]{{"1", "2", "3", "4"}, {"1", "2", "3", "4"}, {"1", "2", "3", "4"}, {"1", "2", "3", "4"}};
         String[][] stringsSizeIncorrect = new String[][]{{"1", "2", "3", "4"}, {"1", "2", "3", "4"}, {"1", "2", "3", "4"}, {"1", "2", "3", "4"}, {"1", "2", "3", "4"}};
         String[][] stringsCharIncorrect = new String[][]{{"1", "2", "3", "4"}, {"1", "2", "3", "4"}, {"1r", "2", "3", "4"}, {"1", "2", "3", "4"}};
+        Object objects = new Object();
+        objects.getClass();
 
         try {
             System.out.println("1) Массив соответствует всем требованиям задания");
             System.out.println("Cумма преобразованных из строки в int элементов массива = " + checkExceptionsMethod(strings));
         } catch (MyCustomExceptions e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
 
         try {
             System.out.println("2) Был подан не двумерный строковый массив размером 4х4");
             System.out.println(checkExceptionsMethod(stringsSizeIncorrect));
         } catch (MyCustomExceptions e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
 
         }
 
@@ -32,7 +36,7 @@ public class MyApp {
             System.out.println("3) Массив строк не может быть преобразован в int");
             System.out.println(checkExceptionsMethod(stringsCharIncorrect));
         } catch (MyCustomExceptions e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
 
         }
 
