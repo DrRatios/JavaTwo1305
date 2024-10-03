@@ -1,8 +1,9 @@
-package Lesson_6;
+package Lesson7;
 
 import Lesson7.AuthService;
 import Lesson7.ChatConst;
 import Lesson7.ClientHandler;
+import Lesson_6.EchoConstans;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ExhoClient extends JFrame {
+public class Client extends JFrame {
 
     private JTextArea chatArea;
     private JTextField inputField;
@@ -24,10 +25,10 @@ public class ExhoClient extends JFrame {
     private Socket socket;
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(ExhoClient::new);
+        SwingUtilities.invokeLater(Lesson_6.ExhoClient::new);
     }
 
-    public ExhoClient() {
+    public Client() {
         try {
             openConnection();
         } catch (IOException e) {
@@ -48,6 +49,7 @@ public class ExhoClient extends JFrame {
                         break;
                     }
                     chatArea.append(strFromServer);
+
                     chatArea.append("\n");
                 }
                 //read
@@ -125,7 +127,8 @@ public class ExhoClient extends JFrame {
                 super.windowClosing(e);
                 try {
                     outputStream.writeUTF(EchoConstans.STOP_WORD);
-                    closeConnection();
+                    //closeConnection
+
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -151,3 +154,4 @@ public class ExhoClient extends JFrame {
     }
 
 }
+

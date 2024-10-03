@@ -1,5 +1,6 @@
 package Lesson7;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +25,34 @@ public class BaseAuthService implements AuthService {
         }
     }
 
+    public class ConnectionToDB {
+        static final String DATABASEURL = "jdbc:sqlite:serverdb.db";
+        static Connection connection;
+        static Statement statement;
 
-    private final List<Entry> entries;
+        static {
+            try {
+                Class.forName("org.sqlite.JDBC");
+                connection = DriverManager.getConnection(DATABASEURL);
+                statement = connection.createStatement();
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-    public BaseAuthService() {
-        entries = List.of(
-                new Entry("nick1", "login1", "pass1"),
-                new Entry("nick2", "login2", "pass2"),
-                new Entry("nick3", "login3", "pass3"));
+    private List<Entry> entries;
+
+    public BaseAuthService() throws SQLException {
+//        ConnectionToDB con = new ConnectionToDB();
+        String sql = "select * from Users";
+        ResultSet resultSet = ConnectionToDB.statement.executeQuery(sql);
+        entries = new ArrayList<>();
+        while (resultSet.next()) {
+            entries.add(new Entry(resultSet.getString("nick"),
+                    resultSet.getString("login"),
+                    resultSet.getString("pass")));
+        }
     }
 
 
