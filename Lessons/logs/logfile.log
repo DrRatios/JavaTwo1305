@@ -1,0 +1,10 @@
+INFO  2024-10-03 10:16:18 [main] Lesson7.MyServer (MyServer.java:34) - Сервер запущен ожидает подключения клиента на порте: 8189
+INFO  2024-10-03 10:16:32 [main] Lesson7.MyServer (MyServer.java:37) - Клиент подключился
+INFO  2024-10-03 10:16:32 [main] Lesson7.MyServer (MyServer.java:34) - Сервер запущен ожидает подключения клиента на порте: 8189
+INFO  2024-10-03 10:18:15 [main] Lesson7.MyServer (MyServer.java:34) - Сервер запущен ожидает подключения клиента на порте: 8189
+INFO  2024-10-03 10:18:24 [main] Lesson7.MyServer (MyServer.java:37) - Клиент подключился
+INFO  2024-10-03 10:18:24 [main] Lesson7.MyServer (MyServer.java:34) - Сервер запущен ожидает подключения клиента на порте: 8189
+INFO  2024-10-03 10:19:24 [pool-2-thread-1] Lesson7.MyServer (MyServer.java:120) - Клиент прислал сообщение/команду: [Sonar]: asd
+INFO  2024-10-03 10:19:32 [pool-2-thread-1] Lesson7.MyServer (MyServer.java:120) - Клиент прислал сообщение/команду: [Sonar]: ww
+INFO  2024-10-03 10:20:32 [pool-2-thread-1] Lesson7.MyServer (MyServer.java:120) - Клиент прислал сообщение/команду: [Sonar]: /clients
+INFO  2024-10-03 10:20:54 [pool-2-thread-1] Lesson7.MyServer (MyServer.java:120) - Клиент прислал сообщение/команду: [Sonar]: /end
